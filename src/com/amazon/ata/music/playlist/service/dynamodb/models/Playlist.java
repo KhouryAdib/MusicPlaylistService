@@ -7,7 +7,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents a record in the playlists table.
@@ -15,11 +17,51 @@ import java.util.List;
 @DynamoDBTable(tableName = "playlists")
 public class Playlist {
     private String id;
+    private String name;
+    private String customerId;
+    private Integer songCount;
+    private Set<String> tags;
     private List<AlbumTrack> songList;
+
+    @DynamoDBHashKey(attributeName = "name")
+    public String getName() {
+        return name;
+    }
+
+    @DynamoDBHashKey(attributeName = "customerId")
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    @DynamoDBHashKey(attributeName = "songCount")
+    public int getSongCount() {
+        return songCount;
+    }
+
+    @DynamoDBHashKey(attributeName = "tags")
+    public Set<String> getTags() {
+        return tags;
+    }
 
     @DynamoDBHashKey(attributeName = "id")
     public String getId() {
         return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public void setSongCount(int songCount) {
+        this.songCount = songCount;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 
     public void setId(String id) {

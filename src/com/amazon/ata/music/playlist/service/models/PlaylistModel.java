@@ -1,14 +1,14 @@
 package com.amazon.ata.music.playlist.service.models;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class PlaylistModel {
     private String id;
     private String name;
     private String customerId;
     private int songCount;
-    private List<String> tags;
+    private List<String> tags = null;
+    private List<String> songList;
 
     public PlaylistModel() {
 

@@ -1,1 +1,156 @@
-PARTICIPANTS: use this file for creating the class diagram in mastery task 01
+@startuml
+
+
+interface RequestHandler
+RequestHandler : + handleRequest(Input, Context) :Context
+
+class CreatePlaylistActivityProvider implements RequestHandler {
+ -  id : String
+ - order : SongOrder
+ +  equals(Object o) : boolean
+ +  hashCode() : int
+ +  toString() : String
+}
+
+class GetPlaylistActivityProvider implements RequestHandler
+GetPlaylistActivityProvider : - {static} App app;
+GetPlaylistActivityProvider : handleRequest(GetPlaylistSongsRequest , Context ) : GetPlaylistSongsResult
+
+class GetPlaylistSongsActivityProvider implements RequestHandler
+GetPlaylistSongsActivityProvider : Logger log
+GetPlaylistSongsActivityProvider : PlaylistDao playlistDao
+GetPlaylistSongsActivityProvider : handleRequest(GetPlaylistSongsRequest , Context ) : GetPlaylistSongsResult
+
+class UpdatePlaylistActivityProvider implements RequestHandler
+UpdatePlaylistActivityProvider : handleRequest(AddSongToPlaylistRequest , Context ) : AddSongToPlaylistResult
+
+class AddSongToPlaylistActivityProvider implements RequestHandler
+AddSongToPlaylistActivityProvider : - {static} App app;
+
+class UpdatePlaylistActivity implements RequestHandler{
+ -  Logger log
+    -  PlaylistDao playlistDao
+    + handleRequest(UpdatePlaylistRequest , Context ) : UpdatePlaylistResult
+
+}
+
+class Playlist{
+@DynamoDBHashKey id : String
+name : String
+customerId : String
+songCount : Integer
+tags : Set<String>
+songList : List<AlbumTrack>
+}
+
+class GetPlaylistSongsActivity implements RequestHandler{
+ log : Logger
+ playlistDao : PlaylistDao
+ handleRequest(final GetPlaylistSongsRequest, Context) : GetPlaylistSongsResult
+}
+
+class GetPlaylistActivity implements RequestHandler {
+ PlaylistModel playlist
+ handleRequest(final GetPlaylistRequest getPlaylistRequest, Context context) : GetPlaylistResult
+}
+
+class CreatePlaylistActivity implements RequestHandler {
+ -Logger log
+ -PlaylistDao playlistDao
+ +handleRequest(CreatePlaylistRequest , Context) : CreatePlaylistResult
+}
+
+class AlbumTrackDao{
+  - dynamoDbMapper : DynamoDBMapper
+  + getPlaylist(DynamoDBMapper) : AlbumTrackDao
+}
+
+
+class Playlist{}
+
+
+class PlaylistDao{
+ - dynamoDbMapper : DynamoDBMapper
+ + getPlaylist(String) : Playlist
+}
+
+class UpdatePlaylistResult
+UpdatePlaylistResult : -  playlist : PlaylistModel
+UpdatePlaylistResult : +  getPlaylist() : PlaylistModel
+
+newpage
+class AlbumTrackNotFoundException extends RuntimeException
+AlbumTrackNotFoundException : {static} -final serialVersionUID : long
+
+class InvalidAttributeValueException extends RuntimeException
+InvalidAttributeValueException : {static} -final serialVersionUID : long
+
+class PlaylistNotFoundException extends RuntimeException
+PlaylistNotFoundException : {static} -final serialVersionUID : long
+
+enum SongOrder
+
+class  SongModel
+SongModel :    -  asin : String
+SongModel :    -  album : String
+SongModel :    -  trackNumber : int
+SongModel :    - title : String
+
+class PlaylistModel
+ PlaylistModel :    -  id : String
+ PlaylistModel :    -  name : String
+ PlaylistModel :    -  customerId : String
+ PlaylistModel :    -  songCount : int
+ PlaylistModel :    - tags : List<String>
+
+class AddSongToPlaylistRequest
+ AddSongToPlaylistRequest :    -  id : String
+ AddSongToPlaylistRequest :    -  asin : String
+ AddSongToPlaylistRequest :    -  trackNumber : int
+ AddSongToPlaylistRequest :    -  queueNext : boolean
+
+
+class CreatePlaylistRequest
+
+class GetPlaylistRequest
+GetPlaylistRequest : - id : String
+
+class GetPlaylistSongsRequest
+GetPlaylistSongsRequest :   -  id : String
+GetPlaylistSongsRequest :   -  order : SongOrder
+
+class UpdatePlaylistRequest
+ UpdatePlaylistRequest :   -  id : String
+ UpdatePlaylistRequest :   -  name : String
+ UpdatePlaylistRequest :   -  customerId : String
+
+ class AddSongToPlaylistResult
+AddSongToPlaylistResult : - songList : List<SongModel>
+
+class CreatePlaylistResult
+CreatePlaylistResult : - playlist : PlaylistModel
+
+class AddSongToPlaylistActivity implements RequestHandler{
+    -  log : Logger
+    -  playlistDao : PlaylistDao
+   -  albumTrackDao : AlbumTrackDao
+ +handleRequest(AddSongToPlaylistRequest) : AddSongToPlaylistResult
+ }
+
+class  AlbumTrack{
+       + @DynamoDBHashKey  asin : String
+       + @DynamoDBRangeKey trackNumber : Integer
+       + albumName : String
+       + songTitle : String
+}
+
+
+Playlist --> AlbumTrack
+AddSongToPlaylistActivity --> AlbumTrackDao
+CreatePlaylistActivity --> PlaylistDao
+AddSongToPlaylistActivity --> PlaylistDao
+GetPlaylistActivity -->  PlaylistDao
+GetPlaylistSongsActivity --> PlaylistDao
+UpdatePlaylistActivity --> PlaylistDao
+
+@enduml
