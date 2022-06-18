@@ -6,7 +6,7 @@ public class PlaylistModel {
     private String id;
     private String name;
     private String customerId;
-    private int songCount;
+    private Integer songCount;
     private List<String> tags = null;
     private List<String> songList;
 

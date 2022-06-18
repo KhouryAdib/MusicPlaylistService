@@ -1,6 +1,8 @@
 package com.amazon.ata.music.playlist.service.dynamodb.models;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 /**
@@ -9,7 +11,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 @DynamoDBTable(tableName = "album_tracks")
 public class AlbumTrack {
     private String asin;// partition key, string
-    private int track_number; // sort key, number
+    private Integer track_number; // sort key, number
     private String album_name; // string
     private String song_title; // string
 
@@ -23,7 +25,7 @@ public class AlbumTrack {
         this.asin = asin;
     }
 
-    @DynamoDBHashKey(attributeName = "track_number")
+    @DynamoDBRangeKey(attributeName = "track_number")
     public int getTrack_number() {
         return track_number;
     }
@@ -32,7 +34,7 @@ public class AlbumTrack {
         this.track_number = track_number;
     }
 
-    @DynamoDBHashKey(attributeName = "album_name")
+    @DynamoDBAttribute(attributeName = "album_name")
     public String getAlbum_name() {
         return album_name;
     }
@@ -41,7 +43,7 @@ public class AlbumTrack {
         this.album_name = album_name;
     }
 
-    @DynamoDBHashKey(attributeName = "song_title")
+    @DynamoDBAttribute(attributeName = "song_title")
     public String getSong_title() {
         return song_title;
     }

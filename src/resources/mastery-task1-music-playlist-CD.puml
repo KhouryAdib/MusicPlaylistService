@@ -153,4 +153,17 @@ GetPlaylistActivity -->  PlaylistDao
 GetPlaylistSongsActivity --> PlaylistDao
 UpdatePlaylistActivity --> PlaylistDao
 
+newpage
+class InvalidAttributeChangeException
+class InvalidAttributeValueException
+
+
+class InvalidAttributeException
+
+
+InvalidAttributeValueException  --|> InvalidAttributeException
+InvalidAttributeChangeException --|> InvalidAttributeException
+InvalidAttributeException --|> RuntimeException
+
+
 @enduml

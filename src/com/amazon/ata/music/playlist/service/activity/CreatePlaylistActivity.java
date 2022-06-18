@@ -1,6 +1,7 @@
 package com.amazon.ata.music.playlist.service.activity;
 
 import com.amazon.ata.music.playlist.service.converters.ModelConverter;
+import com.amazon.ata.music.playlist.service.dynamodb.models.AlbumTrack;
 import com.amazon.ata.music.playlist.service.dynamodb.models.Playlist;
 import com.amazon.ata.music.playlist.service.exceptions.InvalidAttributeValueException;
 import com.amazon.ata.music.playlist.service.models.requests.CreatePlaylistRequest;
@@ -61,6 +62,7 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
            tags = new HashSet<>(createPlaylistRequest.getTags());
         } else {
             System.out.println("Playlist Null or empty");
+
         }
 
         if(!MusicPlaylistServiceUtils.isValidString(createPlaylistRequest.getName())){

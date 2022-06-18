@@ -14,6 +14,12 @@ public class CreatePlaylistRequest {
         this.tags = tags;
     }
 
+    public CreatePlaylistRequest(String name, String customerId) {
+        this.name = name;
+        this.customerId = customerId;
+        this.tags = null;
+    }
+
     public CreatePlaylistRequest() {
     }
 

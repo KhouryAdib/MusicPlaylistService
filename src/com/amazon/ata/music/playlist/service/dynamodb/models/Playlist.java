@@ -23,22 +23,22 @@ public class Playlist {
     private Set<String> tags;
     private List<AlbumTrack> songList;
 
-    @DynamoDBHashKey(attributeName = "name")
+    @DynamoDBAttribute(attributeName = "name")
     public String getName() {
         return name;
     }
 
-    @DynamoDBHashKey(attributeName = "customerId")
+    @DynamoDBAttribute(attributeName = "customerId")
     public String getCustomerId() {
         return customerId;
     }
 
-    @DynamoDBHashKey(attributeName = "songCount")
+    @DynamoDBAttribute(attributeName = "songCount")
     public int getSongCount() {
         return songCount;
     }
 
-    @DynamoDBHashKey(attributeName = "tags")
+    @DynamoDBAttribute(attributeName = "tags")
     public Set<String> getTags() {
         return tags;
     }
