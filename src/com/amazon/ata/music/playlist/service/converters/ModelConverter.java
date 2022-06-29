@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelConverter {
     /**
-     * Converts a provided {@link Playlist} into a {@link PlaylistModel} representation.
+     * Converts a provided {@link Playlist} into a {@link PlaylistModel} representation..
      * @param playlist the playlist to convert
      * @return the converted playlist
      */
@@ -39,7 +39,6 @@ public class ModelConverter {
                 .build();
     }
 
-
     public List<SongModel> toSongModelList(List<AlbumTrack> albumTracks) {
         List<SongModel> list = new ArrayList<>();
 
@@ -52,8 +51,6 @@ public class ModelConverter {
                         .build();
                 list.add(model);
         }
-
-
         return list;
     }
 }
