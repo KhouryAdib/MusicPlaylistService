@@ -1,6 +1,7 @@
 package com.amazon.ata.music.playlist.service.lambda;
 
-import com.amazon.ata.music.playlist.service.dependency.App;
+import com.amazon.ata.music.playlist.service.dependency.DaggerServiceComponent;
+import com.amazon.ata.music.playlist.service.dependency.ServiceComponent;
 import com.amazon.ata.music.playlist.service.models.requests.AddSongToPlaylistRequest;
 import com.amazon.ata.music.playlist.service.models.results.AddSongToPlaylistResult;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -8,7 +9,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 public class AddSongToPlaylistActivityProvider implements RequestHandler<AddSongToPlaylistRequest, AddSongToPlaylistResult> {
 
-    private static App app;
+    private static ServiceComponent app;
 
     public AddSongToPlaylistActivityProvider() {
 
@@ -19,9 +20,9 @@ public class AddSongToPlaylistActivityProvider implements RequestHandler<AddSong
         return getApp().provideAddSongToPlaylistActivity().handleRequest(addSongToPlaylistRequest, context);
     }
 
-    private App getApp() {
+    private ServiceComponent getApp() {
         if (app == null) {
-            app = new App();
+            app = DaggerServiceComponent.create();;
         }
 
         return app;

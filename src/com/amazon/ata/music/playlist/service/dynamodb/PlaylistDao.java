@@ -5,10 +5,20 @@ import com.amazon.ata.music.playlist.service.dynamodb.models.Playlist;
 import com.amazon.ata.music.playlist.service.exceptions.PlaylistNotFoundException;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.google.errorprone.annotations.DoNotMock;
+import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
+import org.checkerframework.common.reflection.qual.Invoke;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Accesses data for a playlist using {@link Playlist} to represent the model in DynamoDB.
  */
+
+@Singleton
 public class PlaylistDao {
     private final DynamoDBMapper dynamoDbMapper;
 
@@ -17,6 +27,7 @@ public class PlaylistDao {
      *
      * @param dynamoDbMapper the {@link DynamoDBMapper} used to interact with the playlists table
      */
+    @Inject
     public PlaylistDao(DynamoDBMapper dynamoDbMapper) {
         this.dynamoDbMapper = dynamoDbMapper;
     }
@@ -37,9 +48,11 @@ public class PlaylistDao {
         return playlist;
     }
 
+
+
     public Playlist savePlaylist(Playlist playlist){
 
-        dynamoDbMapper.save(playlist);
+       dynamoDbMapper.save(playlist);
 
         return playlist;
     }

@@ -12,9 +12,13 @@ import com.amazon.ata.music.playlist.service.dynamodb.PlaylistDao;
 import com.amazon.ata.music.playlist.service.util.MusicPlaylistServiceUtils;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.inject.Inject;
 import javax.naming.InvalidNameException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,6 +29,7 @@ import java.util.Set;
  *
  * This API allows the customer to create a new playlist with no songs.
  */
+
 public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequest, CreatePlaylistResult> {
     private final Logger log = LogManager.getLogger();
     private final PlaylistDao playlistDao;
@@ -34,6 +39,7 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
      *
      * @param playlistDao PlaylistDao to access the playlists table.
      */
+    @Inject
     public CreatePlaylistActivity(PlaylistDao playlistDao) {
         this.playlistDao = playlistDao;
     }
@@ -62,7 +68,6 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
            tags = new HashSet<>(createPlaylistRequest.getTags());
         } else {
             System.out.println("Playlist Null or empty");
-
         }
 
         if(!MusicPlaylistServiceUtils.isValidString(createPlaylistRequest.getName())){

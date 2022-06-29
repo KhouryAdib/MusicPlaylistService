@@ -9,6 +9,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -66,6 +67,19 @@ public class Playlist {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Playlist playlist = (Playlist) o;
+        return Objects.equals(id, playlist.id) && Objects.equals(name, playlist.name) && Objects.equals(customerId, playlist.customerId) && Objects.equals(songCount, playlist.songCount) && Objects.equals(tags, playlist.tags) && Objects.equals(songList, playlist.songList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, customerId, songCount, tags, songList);
     }
 
     // PARTICIPANTS: You do not need to modify the songList getters/setters or annotations
